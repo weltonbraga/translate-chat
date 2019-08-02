@@ -11,24 +11,24 @@ module.exports = function TranslateChat(mod) {
         }
     })
 
-    mod.hook('S_CHAT', 2, {order: 100}, (event) => {
+    mod.hook('S_CHAT', 3, {order: 100}, (event) => {
         if (!mod.settings.enabled) return;
-        if (event.authorName === mod.game.me.name) return;
+        if (event.name === mod.game.me.name) return;
         
         getTranslation(event, mod.settings.targetLang, function(query) {
             if (query != undefined) {
-                mod.send('S_CHAT', 2, Object.assign({}, event, {message: query.translation, authorName: event.authorName + ' (Translated)'}));
+                mod.send('S_CHAT', 3, Object.assign({}, event, {message: query.translation, name: event.name + ' (Translated)'}));
             }
         });
     });   
         
-    mod.hook('S_WHISPER', 2, {order: 100}, (event) => {
+    mod.hook('S_WHISPER', 3, {order: 100}, (event) => {
         if (!mod.settings.enabled) return;
-        if (event.authorName === mod.game.me.name) return;
+        if (event.name === mod.game.me.name) return;
         
         getTranslation(event, mod.settings.targetLang, function(query) {
             if (query != undefined) {
-                mod.send('S_WHISPER', 2, Object.assign({}, event, {message: query.translation, authorName: event.authorName + ' (Translated)'}));
+                mod.send('S_WHISPER', 3, Object.assign({}, event, {message: query.translation, name: event.name + ' (Translated)'}));
             }
         });        
     });    
